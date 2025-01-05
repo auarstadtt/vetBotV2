@@ -31,8 +31,7 @@ class MedicalBot:
                     'overrides': {
                         'temperature': 0.3,
                         'retrieval_mode': 'hybrid',
-                        'semantic_ranker': True,
-                        'suggest_followup_questions': True
+                        'semantic_ranker': True
                     }
                 },
                 'session_state': None
