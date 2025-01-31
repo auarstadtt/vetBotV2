@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Assistant Vétérinaire</title>
+    <title>Assistant Vétérinaire (Always Visible)</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -60,55 +60,22 @@
         }
       }
       
-      /* Chat Widget Base Styles */
-      .chat-widget {
-        position: fixed;
-        bottom: 10px;
-        right: 10px;
-        z-index: 1000;
-      }
-      
-      .chat-toggle {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #0056b3, #007bff);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-        transition: transform 0.3s ease;
-      }
-      
-      .chat-toggle i {
-        color: white;
-      }
-      
-      /* Chat Box Styles */
+      /* Container for the chat box (always visible) */
       .chat-box {
         position: fixed;
+        bottom: 70px;
+        right: 10px;
         width: calc(100% - 20px);
         height: calc(100vh - 80px);
         min-height: 400px;
-        bottom: 70px;
-        right: 10px;
         max-height: 600px;
         background-color: #fff;
         border-radius: 20px;
         box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
-        display: none;
+        display: flex; /* ALWAYS display (no toggle) */
         flex-direction: column;
         overflow: hidden;
-        transform: translateY(20px);
-        opacity: 0;
-        transition: transform 0.3s ease, opacity 0.3s ease;
-      }
-      
-      .chat-box.active {
-        display: flex;
-        transform: translateY(0);
-        opacity: 1;
+        z-index: 1000;
       }
       
       /* Chat Header */
@@ -340,11 +307,6 @@
       }
       
       @media screen and (min-width: 768px) {
-        .chat-widget {
-          bottom: 20px;
-          right: 20px;
-        }
-        
         .chat-box {
           width: 400px;
           right: 27px;
@@ -352,31 +314,21 @@
           max-height: calc(100vh - 100px);
           margin-bottom: 1.5rem;
         }
-        
-        .chat-toggle {
-          width: 60px;
-          height: 60px;
-        }
-        
         .chat-header {
           padding: 16px;
         }
-        
         .bot-avatar {
           width: 40px;
           height: 40px;
         }
-        
         .chat-messages {
           padding: 20px;
         }
-        
         .bot-message, .user-message {
           padding: 15px 20px;
           max-width: 85%;
           font-size: 15px;
         }
-        
         .option-button {
           min-width: calc(50% - 10px);
           margin: 5px;
@@ -388,21 +340,17 @@
           width: 420px;
           height: 650px;
         }
-        
         .chat-messages {
           padding: 24px;
         }
-        
         .bot-message, .user-message {
           padding: 18px 22px;
           font-size: 16px;
         }
-        
         .chat-input input {
           padding: 12px 20px;
           font-size: 15px;
         }
-        
         .send-button {
           width: 45px;
           height: 45px;
@@ -414,16 +362,13 @@
           width: 480px;
           height: 700px;
         }
-        
         .bot-avatar {
           width: 45px;
           height: 45px;
         }
-        
         .chat-header {
           padding: 20px;
         }
-        
         .option-button {
           font-size: 15px;
           padding: 12px 20px;
@@ -439,11 +384,9 @@
       }
       
       @media (prefers-contrast: high) {
-        .chat-toggle,
         .send-button {
           border: 2px solid #000;
         }
-        
         .bot-message,
         .user-message {
           border: 1px solid currentColor;
@@ -452,62 +395,55 @@
     </style>
   </head>
   <body>
-    <div class="chat-widget">
-      <!-- The Toggle (Floating Circle) -->
-      <div class="chat-toggle">
-        <i class="fas fa-comments"></i>
+
+    <!-- Always Visible Chat Box -->
+    <div class="chat-box">
+      <!-- Header with bot info and 'back arrow' (optional close) -->
+      <div class="chat-header">
+        <div class="back-button">
+          <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="bot-info">
+          <img
+            src="static/images/logo.png"
+            alt="Healthcare Assistant"
+            class="bot-avatar"
+          />
+          <div class="bot-status">
+            <strong>Assistant Vétérinaire</strong>
+            <small><span class="status-dot"></span>Online</small>
+          </div>
+        </div>
       </div>
 
-      <!-- The Chat Box (Initially Hidden) -->
-      <div class="chat-box">
-        <!-- Header with bot info -->
-        <div class="chat-header">
-          <div class="back-button">
-            <i class="fas fa-arrow-left"></i>
-          </div>
-          <div class="bot-info">
+      <!-- Main Messages Area -->
+      <div class="chat-messages">
+        <!-- Initial Greeting from Bot -->
+        <div class="bot-message-container">
+          <div class="ai-indicator">
             <img
               src="static/images/logo.png"
               alt="Healthcare Assistant"
               class="bot-avatar"
             />
-            <div class="bot-status">
-              <strong>Assistant Vétérinaire</strong>
-              <small><span class="status-dot"></span>Online</small>
-            </div>
+          </div>
+          <div class="message bot-message">
+            👋 Bienvenue ! Je suis Pif, l’intelligence artificielle vétérinaire de Petgen. Je suis là pour vous accompagner dans la résolution des problèmes de santé de vos compagnons ?
           </div>
         </div>
+      </div>
 
-        <!-- Main Messages Area -->
-        <div class="chat-messages">
-          <!-- Initial Greeting from Bot -->
-          <div class="bot-message-container">
-            <div class="ai-indicator">
-              <img
-                src="static/images/logo.png"
-                alt="Healthcare Assistant"
-                class="bot-avatar"
-              />
-            </div>
-            <div class="message bot-message">
-              👋 Bienvenue ! Je suis Pif, l’intelligence artificielle vétérinaire de Petgen. Je suis là pour vous accompagner dans la résolution des problèmes de santé de vos compagnons?
-            </div>
-          </div>
-        </div>
-
-        <!-- Input Area -->
-        <div class="chat-input">
-          <input type="text" placeholder="Type your message here..." />
-          <button class="send-button">
-            <i class="fas fa-paper-plane"></i>
-          </button>
-        </div>
+      <!-- Input Area -->
+      <div class="chat-input">
+        <input type="text" placeholder="Type your message here..." />
+        <button class="send-button">
+          <i class="fas fa-paper-plane"></i>
+        </button>
       </div>
     </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const chatToggle = document.querySelector(".chat-toggle");
         const chatBox = document.querySelector(".chat-box");
         const input = document.querySelector(".chat-input input");
         const sendButton = document.querySelector(".send-button");
@@ -517,14 +453,14 @@
         // Initialize empty message history
         let messageHistory = [];
 
-        // Makes the container scroll to the bottom
+        // Scroll to bottom
         function scrollToBottom() {
           messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // Format any special markers: numbered lists, bullet points, etc.
+        // Format any special text: bold, bullet points, etc.
         function formatMessage(text) {
-          // Format numbered lists (like "1. Something")
+          // Format numbered lists: "1. Something"
           text = text.replace(
             /(\d+\.)\s*([^?]+?)(?=\s*\d+\.|$)/g,
             (_, number, content) => {
@@ -534,7 +470,7 @@
             }
           );
       
-          // Handle bullet points (lines starting with "- ")
+          // Bullet points
           const bulletPoints = text.match(/(?:^|\n)-\s*(.+)/gm);
           if (bulletPoints) {
             const formattedBullets = bulletPoints
@@ -544,14 +480,14 @@
             text += `\n${formattedBullets}`;
           }
       
-          // Split paragraphs
+          // Paragraph separation on blank lines
           return text
             .split("\n\n")
             .map((para) => (para.trim() ? `<p>${para.trim()}</p>` : ""))
             .join("\n");
         }
 
-        // Create a simple "typing..." indicator
+        // Create "typing..." indicator
         function createTypingIndicator() {
           const indicator = document.createElement("div");
           indicator.className = "typing-indicator";
@@ -563,7 +499,7 @@
           return indicator;
         }
 
-        // Append a user message to the chat
+        // Add user message to chat
         async function addUserMessage(text) {
           const messageContainer = document.createElement("div");
           const messageDiv = document.createElement("div");
@@ -571,7 +507,7 @@
           messageDiv.textContent = text;
           messageContainer.appendChild(messageDiv);
           messagesContainer.appendChild(messageContainer);
-          
+
           messageHistory.push({
             role: "user",
             content: text
@@ -581,30 +517,30 @@
           console.log("Message history after user message:", JSON.parse(JSON.stringify(messageHistory)));
         }
 
-        // Send user input to the backend, stream the response
+        // Send user input to the backend
         async function sendMessage(message) {
-          // Typing indicator
+          // Show typing indicator
           const typingIndicator = createTypingIndicator();
           messagesContainer.appendChild(typingIndicator);
           scrollToBottom();
-        
-          // Bot message container + bubble
+
+          // Bot message container
           const messageContainer = document.createElement("div");
           messageContainer.className = "bot-message-container";
-        
+
+          // AI indicator
           const aiIndicator = document.createElement("div");
           aiIndicator.className = "ai-indicator";
           aiIndicator.innerHTML = '<img src="static/images/logo.png" alt="Healthcare Assistant" class="bot-avatar">';
-        
+
           const messageDiv = document.createElement("div");
           messageDiv.className = "message bot-message stream-response";
-        
+
           messageContainer.appendChild(aiIndicator);
 
           try {
             console.log("Sending message history:", JSON.parse(JSON.stringify(messageHistory)));
 
-            // POST to /chat
             const response = await fetch("/chat", {
               method: "POST",
               headers: { 
@@ -623,37 +559,35 @@
             let accumulatedText = "";
             let lastChunk = null;
             let isFirstMessage = true;
-        
+
             while (true) {
               const { done, value } = await reader.read();
               if (done) break;
-        
+
               const chunk = decoder.decode(value);
               const lines = chunk.split("\n");
-        
+
               for (const line of lines) {
                 if (line.startsWith("data: ")) {
                   try {
                     const jsonData = JSON.parse(line.slice(6));
                     lastChunk = jsonData;
-        
-                    // Once we see the first chunk, remove typing indicator & attach the message bubble
+
                     if (jsonData.delta?.content && isFirstMessage) {
                       typingIndicator.remove();
                       messageContainer.appendChild(messageDiv);
                       messagesContainer.appendChild(messageContainer);
                       isFirstMessage = false;
                     }
-        
-                    // Accumulate streaming content
+
                     if (jsonData.delta?.content) {
                       accumulatedText += jsonData.delta.content;
                       
-                      // Bold headers: **Some Text**
+                      // Handle bold headers: **Some Text**
                       let formattedText = accumulatedText.replace(
                         /\*\*(.*?)\*\*/g,
                         (match, content) => {
-                          // Title-case the text
+                          // Convert to Title Case
                           const formattedContent = content
                             .trim()
                             .split(" ")
@@ -662,7 +596,7 @@
                           return `<strong class="section-header">${formattedContent}</strong>`;
                         }
                       );
-                      
+
                       // Format numbered items & bullet points
                       formattedText = formattedText.replace(
                         /(\d+\.)\s*([^\n]+)/g,
@@ -672,13 +606,13 @@
                         /^-\s*([^\n]+)/gm,
                         '<div class="bullet-point">- $1</div>'
                       );
-                      
-                      // Format paragraphs
+
+                      // Split into paragraphs
                       formattedText = formattedText
                         .split("\n\n")
-                        .map(para => para.trim() ? `<p>${para.trim()}</p>` : "")
+                        .map((para) => (para.trim() ? `<p>${para.trim()}</p>` : ""))
                         .join("");
-        
+
                       messageDiv.innerHTML = formattedText;
                       scrollToBottom();
                     }
@@ -688,8 +622,8 @@
                 }
               }
             }
-        
-            // Once complete, store final response in message history
+
+            // After streaming completes
             if (accumulatedText) {
               messageHistory.push({
                 role: "assistant",
@@ -697,30 +631,30 @@
               });
               console.log("Message history after bot response:", JSON.parse(JSON.stringify(messageHistory)));
             }
-        
-            // If the server provided follow-up questions
+
+            // Follow-up questions
             if (lastChunk?.context?.followup_questions?.length > 0) {
               const followUpDiv = document.createElement("div");
               followUpDiv.className = "follow-up-questions";
-        
+
               const optionsContainer = document.createElement("div");
               optionsContainer.className = "options";
-        
+
               lastChunk.context.followup_questions.forEach((question) => {
                 const optionButton = document.createElement("button");
                 optionButton.className = "option-button";
                 optionButton.textContent = question;
-        
+
                 optionButton.addEventListener("click", () => {
                   addUserMessage(question);
                   sendMessage(question);
                   input.value = "";
                   followUpDiv.remove();
                 });
-        
+
                 optionsContainer.appendChild(optionButton);
               });
-        
+
               followUpDiv.appendChild(optionsContainer);
               messageContainer.appendChild(followUpDiv);
               scrollToBottom();
@@ -735,21 +669,14 @@
           }
         }
 
-        // Toggle the chat box open/closed
-        chatToggle.addEventListener("click", () => {
-          chatBox.classList.toggle("active");
-          if (chatBox.classList.contains("active")) {
-            // Focus the input if opening
-            input.focus();
-          }
-        });
-      
-        // "Back arrow" to close the chat
+        // "Back arrow" to close/hide chat if desired
         backButton.addEventListener("click", () => {
-          chatBox.classList.remove("active");
+          // If you want the "back arrow" to do something, like hide the chat, do so here:
+          // e.g., chatBox.style.display = 'none';
+          chatBox.style.display = 'none';
         });
-      
-        // Send button click
+
+        // Send button
         sendButton.addEventListener("click", () => {
           const message = input.value.trim();
           if (message) {
@@ -758,8 +685,8 @@
             input.value = "";
           }
         });
-      
-        // Enter key to send
+
+        // Press enter to send
         input.addEventListener("keypress", (e) => {
           if (e.key === "Enter") {
             const message = input.value.trim();
@@ -770,15 +697,13 @@
             }
           }
         });
-      
-        // Scroll whenever input is focused
+
+        // Scroll on input focus
         input.addEventListener("focus", scrollToBottom);
-      
-        // Re-scroll on window resize if chat is open
+
+        // Rerun scroll on resize
         window.addEventListener("resize", () => {
-          if (chatBox.classList.contains("active")) {
-            scrollToBottom();
-          }
+          scrollToBottom();
         });
       });
     </script>
