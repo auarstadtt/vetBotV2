@@ -671,8 +671,8 @@
 
         // "Back arrow" to close/hide chat if desired
         backButton.addEventListener("click", () => {
-          // If you want the "back arrow" to do something, like hide the chat, do so here:
-          // e.g., chatBox.style.display = 'none';
+          // Notify parent page that chat was closed
+          window.parent.postMessage('chatClosed', '*');
           chatBox.style.display = 'none';
         });
 
