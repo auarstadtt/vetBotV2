@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 class MedicalBot:
     def __init__(self):
-        self.endpoint = "https://capps-backend-2374ijvgug3tg.livelyriver-c99e47ea.westus.azurecontainerapps.io/chat/stream"
+        self.endpoint = "https://capps-backend-shzm2b4edovty.calmsea-1c79426f.westus.azurecontainerapps.io/chat/stream"
         
     def get_stream(self, query: str, message_history: Optional[List[Dict[str, str]]] = None):
         try:
@@ -76,6 +76,18 @@ medical_bot = None
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    """
+    Basic health check endpoint for Azure Health Check feature
+    Returns 200 if the application is running
+    """
+    return jsonify({
+        'status': 'healthy',
+        'service': 'medical-bot',
+        'timestamp': datetime.utcnow().isoformat()
+    }), 200
 
 @app.route('/chat', methods=['POST'])
 def chat():
