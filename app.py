@@ -5,7 +5,7 @@ import os
 from typing import Optional, List, Dict, Any
 
 app = Flask(__name__)
-
+# new medical bot add 
 class MedicalBot:
     def __init__(self):
         self.endpoint = "https://capps-backend-shzm2b4edovty.calmsea-1c79426f.westus.azurecontainerapps.io/chat/stream"
